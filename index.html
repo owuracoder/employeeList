@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/4960d39a97.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Employee List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Employees Database</h2>
+            <div id="addEmployee" class="add-icon"><i class="fas fa-plus-square fa-2x"></i></div>
+        </div>
+        <p class="text">Search for Employees</p>
+        <div class="search-box">
+            <input id="search-box" class="search" type="text" name="search" id="search" placeholder="Search employees by first or last name">
+            <div id="search-icon" class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="group-btns">
+            <button id="btnSearch" class="btn">Search Employee</button>
+            <button id="btnAll" class="btn">All Employees</button>
+        </div>
+
+
+        <div id="new-employee" class="new-employee">
+            <h2>Employee Registration</h2>
+            <div id="remove-icon" class="remove-icon">
+                <i class="far fa-times-circle fa-2x"></i>
+            </div>
+            <div class="input-text">
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName">
+            </div>
+            <div class="input-text">
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName">
+            </div>
+            <div class="input-text">
+                <label for="dob">Date of Birth</label>
+                <input type="date" name="dob" id="dob">
+            </div>
+            <div class="input-text">
+                <label for="workposition">Work Position</label>
+                <select id="workposition">
+                    <option value="full-stack developer">full-stack developer</option>
+                    <option value="front-end developer">front-end developer</option>
+                    <option value="sw admin">sw admin</option>
+                    <option value="help desk">help desk</option>
+                    <option value="scrum master">scrum master</option>
+                    <option value="product manager">product manager</option>
+                  </select>
+            </div>
+            <input type="hidden" id="id" value="">
+            <button id="addBtn" class="btn">Add Employee</button>
+        </div>
+
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

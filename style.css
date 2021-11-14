@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(
+      217deg,
+      rgb(207, 173, 217),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(300deg, rgb(167, 160, 219), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgb(116, 134, 216), rgba(0, 0, 255, 0) 70.71%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  color: #5c5168;
+  font-size: 18px;
+}
+
+.container {
+  background: rgba(247, 244, 249, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+  width: 50%;
+  margin: 20px 0px;
+  position: relative;
+}
+
+.container .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .header .fa-plus-square {
+  color: rgba(80, 34, 234, 0.8);
+  cursor: pointer;
+}
+
+.group-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#btnAll {
+  background: #a7a0db;
+  box-shadow: 2px 2px 1px rgba(167, 160, 219, 1);
+}
+
+.btn {
+  margin: 10px 0px;
+  padding: 10px 10px;
+  border: none;
+  letter-spacing: 0.5px;
+  background: rgba(80, 34, 234, 0.8);
+  color: rgb(255, 255, 255, 0.9);
+  font-size: 15px;
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 2px 2px 1px rgba(80, 34, 234, 0.8);
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.btn:hover {
+  transform: scale(0.9);
+}
+
+.text {
+  font-weight: 200;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-box .search {
+  border-radius: 20px;
+  padding: 15px 0px 15px 50px;
+  width: 100%;
+  border: 0px;
+  box-shadow: 2px 2px 0.5px rgba(28, 25, 29, 0.2);
+}
+
+.search-box .search::placeholder {
+  padding-left: 5px;
+}
+
+.search-box .search:focus {
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 2px;
+  background: rgb(247, 244, 249);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.search-icon .fa-search {
+  color: rgb(95, 95, 95);
+}
+
+.sub-container {
+  margin-top: 30px;
+  background: rgba(247, 244, 249, 0.5);
+  border-radius: 20px;
+  padding: 20px 20px;
+}
+
+.subt-text {
+  margin-bottom: 10px;
+  color: #5c5168;
+  font-size: 15px;
+}
+
+.employee-info {
+  background: rgb(247, 244, 249);
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 2px 2px 0.5px rgba(28, 25, 29, 0.2);
+}
+
+.employee-info .main-sec {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #5c5168;
+}
+
+.employee-info .main-sec .employee-name {
+  margin: 0px 10px;
+}
+
+.employee-info .sub-sec {
+  color: #5c5168;
+}
+
+.employee-info .sub-sec .colorCode {
+  background: rgba(167, 160, 219, 0.1);
+  color: rgba(80, 34, 234, 0.8);
+  font-weight: bolder;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.new-employee {
+  position: absolute;
+  left: 0px;
+  top: -85px;
+  background: rgba(239, 239, 246, 0.5);
+  padding: 20px 20px;
+  width: 100%;
+  border-radius: 20px;
+  transform: translateX(-1100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(50px);
+  box-shadow: 2px 2px 0.5px rgba(0, 0, 0, 0.1);
+  transition: 0.5s transform ease-in;
+}
+
+.new-employee.register {
+  transform: translateX(0px);
+}
+
+.new-employee .input-text {
+  margin: 5px 0px;
+  width: 100%;
+}
+
+.new-employee .input-text label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.new-employee .input-text input {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+.new-employee .input-text input:focus {
+  outline: none;
+}
+
+.new-employee .remove-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #5c5168;
+  cursor: pointer;
+}
+
+.input-text select {
+  padding: 10px 2px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+  border: none;
+}
+
+.input-text select:focus {
+  outline: none;
+}
+
+.action-handlers {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #5c5168;
+}
+
+.action-handlers .edit-handler {
+  margin-right: 5px;
+  padding: 5px;
+}
+
+.action-handlers .edit-handler {
+  cursor: pointer;
+}
+
+.action-handlers .del-handler {
+  cursor: pointer;
+}
+
+.success {
+  background: rgb(208, 160, 223);
+  color: white;
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.5);
+}
