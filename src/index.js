@@ -41,7 +41,6 @@ function searchEmployee(){
             })
 
             if(found === false){
-                console.log('execute me')
                 if(document.getElementById('sub-container')){
                     document.getElementById('sub-container').remove()
                     userInterface.showAlert('No Eployee found','success')
