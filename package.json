@@ -1,0 +1,23 @@
+{
+  "name": "employeelist",
+  "mode": "development",
+  "version": "1.0.0",
+  "description": "creating a database for employees",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "json:server": "json-server --watch employee_api/db.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.63.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "date-fns": "^2.25.0",
+    "json-server": "^0.17.0"
+  }
+}
