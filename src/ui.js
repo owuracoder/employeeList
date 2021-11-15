@@ -64,6 +64,8 @@ class UI{
     changeState(type){
         if(type === 'edit'){
             this.addBtn.textContent = 'Edit Employee Details'
+        }else if(type === 'add'){
+            this.addBtn.textContent = 'Add Employee'
         }
     }
 
@@ -88,6 +90,11 @@ class UI{
                 document.getElementById('error-field').remove()
             }, 1000);
         }
+    }
+
+    refreshState(){
+        document.getElementById('id').value = ''
+        this.changeState(this.stateSwitch)
     }
 
 

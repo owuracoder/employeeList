@@ -95,12 +95,15 @@ function registerNewEmployee(e){
             .then(resp => {
                 userInterface.clearFields()
                 userInterface.displayEmployees(resp)
+                document.getElementById('new-employee').classList.remove('register')
             }).catch(err => console.log(err))
         }else {
             http.put(`http://localhost:3000/employees/${hiddenIdInput}`, data)
             .then(resp => {
                 userInterface.clearFields()
                 userInterface.displayEmployees(resp)
+                userInterface.refreshState()
+                document.getElementById('new-employee').classList.remove('register')
             }).catch(err => console.log(err))
         }
 
@@ -108,7 +111,6 @@ function registerNewEmployee(e){
         userInterface.showAlert('Fiels cannot be empty','success')
     }
     
-
 }
 
 
