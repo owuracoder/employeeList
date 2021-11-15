@@ -72,6 +72,7 @@ function removeRegisterForm(){
 }
 
 function registerNewEmployee(e){
+    location.reload()
     e.preventDefault()
     const firstName = document.getElementById('firstName').value
     const surName = document.getElementById('lastName').value
@@ -104,7 +105,6 @@ function registerNewEmployee(e){
                 userInterface.displayEmployees(resp)
                 userInterface.refreshState()
                 document.getElementById('new-employee').classList.remove('register')
-                location.reload()
             }).catch(err => console.log(err))
         }
 
