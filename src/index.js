@@ -104,6 +104,7 @@ function registerNewEmployee(e){
                 userInterface.displayEmployees(resp)
                 userInterface.refreshState()
                 document.getElementById('new-employee').classList.remove('register')
+                location.reload()
             }).catch(err => console.log(err))
         }
 

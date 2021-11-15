@@ -2,16 +2,9 @@
   "employees": [
     {
       "firstName": "Richard",
-      "surName": "Agyemang",
-      "dob": "2021-11-10",
-      "workPosition": "help desk",
-      "id": 1
-    },
-    {
-      "firstName": "Naomi",
-      "surName": "okyere",
+      "surName": "samama",
       "dob": "2021-11-05",
-      "workPosition": "front-end developer",
+      "workPosition": "full-stack developer",
       "id": 2
     },
     {
@@ -20,13 +13,6 @@
       "dob": "2021-11-03",
       "workPosition": "product manager",
       "id": 3
-    },
-    {
-      "firstName": "kwame",
-      "surName": "okyere",
-      "dob": "2021-11-26",
-      "workPosition": "full-stack developer",
-      "id": 4
     }
   ]
 }
