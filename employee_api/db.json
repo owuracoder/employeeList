@@ -2,9 +2,9 @@
   "employees": [
     {
       "firstName": "Richard",
-      "surName": "samama",
+      "surName": "samamas",
       "dob": "2021-11-05",
-      "workPosition": "help desk",
+      "workPosition": "full-stack developer",
       "id": 2
     },
     {

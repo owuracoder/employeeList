@@ -7,8 +7,11 @@ window.addEventListener('DOMContentLoaded',employeeInfo)
 
 document.getElementById('btnAll').addEventListener('click',employeeInfo)
 
-const addEmployee = document.getElementById('addEmployee') 
-addEmployee.addEventListener('click',pullregisterform)
+ 
+document.getElementById('addEmployee').addEventListener('click',pullregisterform)
+
+
+console.log(test)
 
 const removeIcon = document.getElementById('remove-icon')
 removeIcon.addEventListener('click',removeRegisterForm)
@@ -62,7 +65,9 @@ function employeeInfo(){
 }
 
 function pullregisterform(){
-    document.getElementById('sub-container').remove()
+    if(document.getElementById('sub-container')){
+        document.getElementById('sub-container').remove()
+    }
     document.getElementById('new-employee').classList.add('register')  
 }
 
