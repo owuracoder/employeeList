@@ -17,6 +17,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0px;
 }
 
 .text {
@@ -258,4 +259,11 @@ body {
   padding: 10px;
   text-align: center;
   box-shadow: 1px 1px 0.5px rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width: 420px) {
+  .container {
+    width: 100%;
+    margin: 0px;
+  }
 }
