@@ -38,6 +38,7 @@ function searchEmployee(){
                     document.getElementById('sub-container').remove()
                     arrTrans.push(dataEl)
                     userInterface.displayEmployees(arrTrans)
+                    document.getElementById('search-box').value = ''
                 }
             })
 
@@ -45,8 +46,10 @@ function searchEmployee(){
                 if(document.getElementById('sub-container')){
                     document.getElementById('sub-container').remove()
                     userInterface.showAlert('No Eployee found','success')
+                    document.getElementById('search-box').value = ''
                 }else {
                     userInterface.showAlert('No Eployee found','success')
+                    document.getElementById('search-box').value = ''
                 }
             }
             
