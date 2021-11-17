@@ -29,7 +29,7 @@ function searchEmployee(){
     let searchName = document.getElementById('search-box').value
     const arrTrans = []
     let found = false
-    http.get(`http://localhost:3000/employees`)
+    http.get(`https://my-json-server.typicode.com/owuracoder/employeeList/employees`)
         .then(data => {
             data.forEach((dataEl) =>{
                 const tempElf = dataEl.firstName.toLowerCase()
@@ -59,7 +59,7 @@ function employeeInfo(){
     if(document.getElementById('sub-container')){
         document.getElementById('sub-container').remove()
     }
-   http.get('http://localhost:3000/employees')
+   http.get('https://my-json-server.typicode.com/owuracoder/employeeList/employees')
     .then(data => userInterface.displayEmployees(data))
     .catch(err => console.log(err))
 }
@@ -97,14 +97,14 @@ function registerNewEmployee(e){
     if(firstName !== '' && surName !== '' && dob !== ''){
 
         if(hiddenIdInput === ''){
-            http.post('http://localhost:3000/employees', data)
+            http.post('https://my-json-server.typicode.com/owuracoder/employeeList/employees', data)
             .then(resp => {
                 userInterface.clearFields()
                 userInterface.displayEmployees(resp)
                 document.getElementById('new-employee').classList.remove('register')
             }).catch(err => console.log(err))
         }else {
-            http.put(`http://localhost:3000/employees/${hiddenIdInput}`, data)
+            http.put(`https://my-json-server.typicode.com/owuracoder/employeeList/employees/${hiddenIdInput}`, data)
             .then(resp => {
                 userInterface.clearFields()
                 userInterface.displayEmployees(resp)
@@ -124,7 +124,7 @@ function removeEmployee(e){
     if(e.target.parentElement.classList.contains('del-handler')){
         let id = e.target.parentElement.dataset.id
         if(confirm('are you sure you want to delete')){
-            http.delete(`http://localhost:3000/employees/${id}`)
+            http.delete(`https://my-json-server.typicode.com/owuracoder/employeeList/employees/${id}`)
                 .catch(err => {
                     console.log(err)
                 })
