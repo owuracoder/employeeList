@@ -163,6 +163,7 @@ body {
 }
 
 .new-employee {
+  display: none;
   position: absolute;
   left: 0px;
   top: -85px;
@@ -181,6 +182,7 @@ body {
 }
 
 .new-employee.register {
+  display: block;
   transform: translateX(0px);
 }
 

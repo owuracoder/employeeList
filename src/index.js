@@ -11,8 +11,6 @@ document.getElementById('btnAll').addEventListener('click',employeeInfo)
 document.getElementById('addEmployee').addEventListener('click',pullregisterform)
 
 
-console.log(test)
-
 const removeIcon = document.getElementById('remove-icon')
 removeIcon.addEventListener('click',removeRegisterForm)
 
