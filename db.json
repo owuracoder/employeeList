@@ -13,34 +13,6 @@
       "dob": "2021-11-03",
       "workPosition": "product manager",
       "id": 3
-    },
-    {
-      "firstName": "hjk",
-      "surName": "iokn",
-      "dob": "2021-11-10",
-      "workPosition": "scrum master",
-      "id": 4
-    },
-    {
-      "firstName": "jkk",
-      "surName": "nkll",
-      "dob": "2021-11-19",
-      "workPosition": "sw admin",
-      "id": 5
-    },
-    {
-      "firstName": "jljn",
-      "surName": "nlk;",
-      "dob": "2021-11-02",
-      "workPosition": "full-stack developer",
-      "id": 6
-    },
-    {
-      "firstName": "some",
-      "surName": "last name",
-      "dob": "2021-11-12",
-      "workPosition": "front-end developer",
-      "id": 7
     }
   ]
 }

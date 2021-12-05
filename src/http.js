@@ -26,8 +26,7 @@ class MakeHTTPRequest{
     
     async delete(url){
         const response = await fetch(url,{method:'DELETE', headers:{'content-type':'application/json'}});
-
-        const resdata = await 'employees deleted'
+        const resdata = await response.json()
         return resdata
     }
 }

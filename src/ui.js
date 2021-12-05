@@ -13,7 +13,7 @@ class UI{
 
     displayEmployees(employeeInfo){
         let employees = ''
-        const subContainer = document.createElement('div')
+        let subContainer = document.createElement('div')
         subContainer.id = "sub-container"
         subContainer.classList.add('sub-container')
         subContainer.innerHTML = `<h2 class="sub-text">Employees List</h2>`

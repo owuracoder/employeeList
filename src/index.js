@@ -5,10 +5,12 @@ import { format} from 'date-fns'
 
 window.addEventListener('DOMContentLoaded',employeeInfo)
 
-document.getElementById('btnAll').addEventListener('click',employeeInfo)
+const allEmployeesButton = document.getElementById('btnAll')
 
- 
-document.getElementById('addEmployee').addEventListener('click',pullregisterform)
+allEmployeesButton.addEventListener('click',employeeInfo)
+
+const addEmployee = document.getElementById('addEmployee')
+addEmployee.addEventListener('click',pullregisterform)
 
 
 const removeIcon = document.getElementById('remove-icon')
@@ -17,22 +19,33 @@ removeIcon.addEventListener('click',removeRegisterForm)
 const addBtn = document.getElementById('addBtn')
 addBtn.addEventListener('click',registerNewEmployee)
 
-document.querySelector('.container').addEventListener('click',removeEmployee)
+const containerElement = document.querySelector('.container')
 
-document.querySelector('.container').addEventListener('click',editState)
+containerElement.addEventListener('click',changeEmployeeState)
 
-document.getElementById('btnSearch').addEventListener('click',searchEmployee)
+
+const searchEmployeeBtn = document.getElementById('btnSearch')
+
+
+
+searchEmployeeBtn.addEventListener('click',searchEmployee)
+
+function changeEmployeeState(event){
+    removeEmployee(event)
+    editState(event)
+}
 
 function searchEmployee(){
     let searchName = document.getElementById('search-box').value
-    const arrTrans = []
+    let arrTrans = []
     let found = false
+    
     http.get(`http://localhost:3000/employees`)
         .then(data => {
             data.forEach((dataEl) =>{
-                const tempElf = dataEl.firstName.toLowerCase()
-                const tempEls = dataEl.surName.toLowerCase()
-                const tempNameSearch = searchName.trim().toLowerCase()
+                let tempElf = dataEl.firstName.toLowerCase()
+                let tempEls = dataEl.surName.toLowerCase()
+                let tempNameSearch = searchName.trim().toLowerCase()
                 if(tempElf === tempNameSearch || tempEls === tempNameSearch){
                     found = true
                     document.getElementById('sub-container').remove()
@@ -137,22 +150,22 @@ function removeEmployee(e){
 function editState(e){
     if(e.target.parentElement.classList.contains('edit-handler')){
         pullregisterform()
-        const id = e.target.parentElement.dataset.id
+        let id = e.target.parentElement.dataset.id
 
         let jobPosition = e.target.parentElement.parentElement.previousElementSibling.children[0].textContent
         let workPosition = jobPosition.slice(9)
         let dateOfBirth = e.target.parentElement.parentElement.previousElementSibling.children[1].textContent
 
         let rawdob = dateOfBirth.slice(13)
-        const splittedDate = rawdob.split('-')
-        const year = splittedDate[0]
-        const month = splittedDate[1] - 1
-        const day = splittedDate[2]
-        const dob = format(new Date(year, month, day), 'yyy-MM-dd')
+        let splittedDate = rawdob.split('-')
+        let year = splittedDate[0]
+        let month = splittedDate[1] - 1
+        let day = splittedDate[2]
+        let dob = format(new Date(year, month, day), 'yyy-MM-dd')
 
         let fullName = e.target.parentElement.parentElement.previousElementSibling.previousElementSibling.children[1].textContent
 
-        const splittedName = fullName.split(' ')
+        let splittedName = fullName.split(' ')
         let firstName,surName
         [firstName,surName] = splittedName
 
