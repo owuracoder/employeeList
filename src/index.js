@@ -1,186 +1,276 @@
-import { http } from "./http";
-import {userInterface} from "./ui"
-import { format} from 'date-fns'
+const addEmployeeIcon = document.getElementById('addEmployee')
+const employeeForm = document.getElementById('new-employee')
+const closeButton = document.getElementById('remove-icon')
+const firstNameField = document.getElementById('firstName')
+const lastNameField = document.getElementById('lastName')
+const dateOfBirthField = document.getElementById('dob')
+const workPositionField = document.getElementById('workposition')
+const addEmployeeButton = document.getElementById('addBtn')
+const container = document.querySelector('.container')
+const searchBoxField = document.getElementById('search-box')
+const searchButton = document.getElementById('btnSearch')
+const showAllEmployees = document.getElementById('btnAll')
 
 
-window.addEventListener('DOMContentLoaded',employeeInfo)
-
-const allEmployeesButton = document.getElementById('btnAll')
-
-allEmployeesButton.addEventListener('click',employeeInfo)
-
-const addEmployee = document.getElementById('addEmployee')
-addEmployee.addEventListener('click',pullregisterform)
-
-
-const removeIcon = document.getElementById('remove-icon')
-removeIcon.addEventListener('click',removeRegisterForm)
-
-const addBtn = document.getElementById('addBtn')
-addBtn.addEventListener('click',registerNewEmployee)
-
-const containerElement = document.querySelector('.container')
-
-containerElement.addEventListener('click',changeEmployeeState)
+addEmployeeIcon.addEventListener('click', pullEmployeeForm) 
+closeButton.addEventListener('click', closeEmployeeForm)
+addEmployeeButton.addEventListener('click', addNewEmployee)
+container.addEventListener('click', deleteEmployee)
+container.addEventListener('click', editEmployeeInformation)
+searchButton.addEventListener('click', searchEmployee)
+showAllEmployees.addEventListener('click', showEveryEmployee)
+window.addEventListener('DOMContentLoaded',initiateApp)
 
 
-const searchEmployeeBtn = document.getElementById('btnSearch')
+let editMode = {}
+class Employee {
+    constructor(firstName, lastName, dateOfBirth, workPosition){
+        this.firstName = firstName
+        this.lastName = lastName
+        this.dateOfBirth = dateOfBirth
+        this.workPosition = workPosition
+    }
+}
 
+function initiateApp(){
+    clearEmployeeContainer()
+    displayEmployees()
+}
 
-
-searchEmployeeBtn.addEventListener('click',searchEmployee)
-
-function changeEmployeeState(event){
-    removeEmployee(event)
-    editState(event)
+function showEveryEmployee(){
+    clearEmployeeContainer()
+    displayEmployees()
 }
 
 function searchEmployee(){
-    let searchName = document.getElementById('search-box').value
-    let arrTrans = []
-    let found = false
-    
-    http.get(`http://localhost:3000/employees`)
-        .then(data => {
-            data.forEach((dataEl) =>{
-                let tempElf = dataEl.firstName.toLowerCase()
-                let tempEls = dataEl.surName.toLowerCase()
-                let tempNameSearch = searchName.trim().toLowerCase()
-                if(tempElf === tempNameSearch || tempEls === tempNameSearch){
-                    found = true
-                    document.getElementById('sub-container').remove()
-                    arrTrans.push(dataEl)
-                    userInterface.displayEmployees(arrTrans)
-                    document.getElementById('search-box').value = ''
-                }
-            })
+    let searchedEmployeeName = searchBoxField.value
+    const employeeData = localStorageCheck()
+    const searchedEmployeeNameInLowerCase = searchedEmployeeName.toLowerCase()
 
-            if(found === false){
-                if(document.getElementById('sub-container')){
-                    document.getElementById('sub-container').remove()
-                    userInterface.showAlert('No Eployee found','success')
-                    document.getElementById('search-box').value = ''
-                }else {
-                    userInterface.showAlert('No Eployee found','success')
-                    document.getElementById('search-box').value = ''
-                }
-            }
-            
-        })
-}
-
-function employeeInfo(){
-    if(document.getElementById('sub-container')){
-        document.getElementById('sub-container').remove()
-    }
-   http.get('http://localhost:3000/employees')
-    .then(data => userInterface.displayEmployees(data))
-    .catch(err => console.log(err))
-}
-
-function pullregisterform(){
-    if(document.getElementById('sub-container')){
-        document.getElementById('sub-container').remove()
-    }
-    document.getElementById('new-employee').classList.add('register')  
-}
-
-function removeRegisterForm(){
-    document.getElementById('new-employee').classList.remove('register')
-    employeeInfo()
-}
-
-function registerNewEmployee(e){
-    location.reload()
-    e.preventDefault()
-    const firstName = document.getElementById('firstName').value
-    const surName = document.getElementById('lastName').value
-    const dob = document.getElementById('dob').value
-    const workOptions = document.getElementById('workposition')
-    const workPosition = workOptions.options[workOptions.selectedIndex].value;
-    const hiddenIdInput = document.getElementById('id').value
-
-    const data = {
-        firstName,
-        surName,
-        dob,
-        workPosition
-    }
-
-
-    if(firstName !== '' && surName !== '' && dob !== ''){
-
-        if(hiddenIdInput === ''){
-            http.post('http://localhost:3000/employees', data)
-            .then(resp => {
-                userInterface.clearFields()
-                userInterface.displayEmployees(resp)
-                document.getElementById('new-employee').classList.remove('register')
-            }).catch(err => console.log(err))
-        }else {
-            http.put(`http://localhost:3000/employees/${hiddenIdInput}`, data)
-            .then(resp => {
-                userInterface.clearFields()
-                userInterface.displayEmployees(resp)
-                userInterface.refreshState()
-                document.getElementById('new-employee').classList.remove('register')
-            }).catch(err => console.log(err))
+    employeeData.forEach(function(employee, idx){
+        const employeeFirstName = employee.firstName
+        const currentEmployee = [employeeData[idx]]
+        const employeeFirstNameInLowerCase = employeeFirstName.toLowerCase()
+        if(employeeFirstNameInLowerCase == searchedEmployeeNameInLowerCase ){
+            clearEmployeeContainer()
+            const subContainer = createEmployeeDisplayContainer()
+            const employeesContainer = populateEmployeesContainer(currentEmployee)
+            subContainer.appendChild(employeesContainer)
+            const container = document.querySelector('.container')
+            const htmlNewEmployeeForm= document.getElementById('new-employee')
+            container.insertBefore(subContainer,htmlNewEmployeeForm)
+            searchBoxField.value = ''
         }
-
-    }else {
-        userInterface.showAlert('Fiels cannot be empty','success')
-    }
-    
+    }) 
 }
 
-
-function removeEmployee(e){
-    if(e.target.parentElement.classList.contains('del-handler')){
-        let id = e.target.parentElement.dataset.id
-        if(confirm('are you sure you want to delete')){
-            http.delete(`http://localhost:3000/employees/${id}`)
-                .catch(err => {
-                    console.log(err)
-                })
-            employeeInfo()
-        }
-    }
-}
-
-function editState(e){
-    if(e.target.parentElement.classList.contains('edit-handler')){
-        pullregisterform()
-        let id = e.target.parentElement.dataset.id
-
-        let jobPosition = e.target.parentElement.parentElement.previousElementSibling.children[0].textContent
-        let workPosition = jobPosition.slice(9)
-        let dateOfBirth = e.target.parentElement.parentElement.previousElementSibling.children[1].textContent
-
-        let rawdob = dateOfBirth.slice(13)
-        let splittedDate = rawdob.split('-')
-        let year = splittedDate[0]
-        let month = splittedDate[1] - 1
-        let day = splittedDate[2]
-        let dob = format(new Date(year, month, day), 'yyy-MM-dd')
-
-        let fullName = e.target.parentElement.parentElement.previousElementSibling.previousElementSibling.children[1].textContent
-
-        let splittedName = fullName.split(' ')
-        let firstName,surName
-        [firstName,surName] = splittedName
-
-        const data = {
-            id,
-            firstName,
-            surName,
-            dob,
-            workPosition
-
-        }
-
-        userInterface.populateForm(data)
+function editEmployeeInformation(e){
+    const foundEditIcon = e.target.classList.contains('fa-edit')
+    if(foundEditIcon){
+        const idOfEditIcon = e.target.parentElement.dataset.id
+        const idToInteger = parseInt(idOfEditIcon)
+        const employeeData = JSON.parse(localStorage.getItem('employee'))
         
+        employeeData.forEach((employee,idx)=>{
+            if(idx === idToInteger){
+                hideDisplayEmployeeContainer()
+                employeeForm.classList.add('register')
+                firstNameField.value = employee.firstName
+                lastNameField.value = employee.lastName
+                dateOfBirthField.value = employee.dateOfBirth
+                workPositionField.value = employee.workPosition
+                editMode.status = true
+                editMode.id = idx
+            }
+        })
     } 
+}
+
+function deleteEmployee(e){
+    const foundDeleteIcon = e.target.classList.contains('fa-trash-alt')
+    if(foundDeleteIcon){
+        const idOfDeleteIconParent = e.target.parentElement.dataset.id
+        const idToInteger = parseInt(idOfDeleteIconParent)
+        const employeeData = JSON.parse(localStorage.getItem('employee'))
+        
+        employeeData.forEach((employee,idx)=>{
+            if(idx === idToInteger){
+                employeeData.splice(idx, 1)
+                pushNewEmployeeToStorage(employeeData)
+                clearEmployeeContainer()
+                displayEmployees()
+            }
+        })
+    }
+}
+
+function clearFields(){
+    if(firstNameField.value && lastNameField.value){
+        firstNameField.value = ''
+        lastNameField.value = ''
+    }
+}
+
+function addNewEmployeeToEmployeeList(newEmployee){
+    const employeeData = localStorageCheck()
+    if(editMode.status){
+        employeeData[editMode.id] = newEmployee
+        editMode.status = false
+    }else {
+        employeeData.push(newEmployee)
+    }
+    return employeeData
+}
 
 
+function captureNewEmpoyeeInfo(){
+
+    let firstName = firstNameField.value
+    let lastName = lastNameField.value
+    let dateOfBirth = dateOfBirthField.value
+    let workPosition = workPositionField.value
+    let newEpmloyee = new Employee(firstName,lastName, dateOfBirth, workPosition)
+
+    if(editMode.status){
+        let employeeData = JSON.parse(localStorage.getItem('employee'))
+        employeeData.forEach(function(employee,idx){
+            if(idx === editMode.id){
+                firstName = employee.firstName
+                lastName = employee.lastName
+                dateOfBirth = employee.dateOfBirth
+                workPosition = employee.workPosition
+            }
+        })
+    }
+
+    return newEpmloyee
+}
+
+function createEmployeeDisplayContainer(){
+    const subContainer = document.createElement('div')
+    subContainer.id = 'sub-container'
+    subContainer.classList.add('sub-container')
+    const header = document.createElement('h2')
+    header.classList.add('sub-text')
+    header.textContent = 'Employees List'
+    subContainer.appendChild(header)
+    return subContainer
+}
+
+function populateEmployeesContainer(allEmployees){
+    const employeesContainer = document.createElement('div')
+    allEmployees.forEach((employeeInfo,employeeId)=>{
+        employeesContainer.innerHTML += `
+        <div class="employee-info">
+        <div class="main-sec">
+            <div class="avatar"><i class="far fa-user-circle fa-2x"></i></div>
+             <div class="employee-name"><span id="first-name">${employeeInfo.firstName}</span> <span id="last-name">${employeeInfo.lastName}</span></div>             
+        </div>
+        <div class="sub-sec">
+            <p class="employee-job"> <span class="colorCode">Position</span>${employeeInfo.workPosition}</p>
+            <p class="employee-dob"><span class="colorCode">Date of Birth</span>${employeeInfo.dateOfBirth}</p>
+        </div>
+        <div class="action-handlers">
+            <div class="edit-handler" data-id="${employeeId}" id="edit-handler">
+                <i class="fas fa-edit"></i>
+            </div>
+            <div class="del-handler" data-id="${employeeId}" id="del-handler">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+        </div>
+    </div> `
+    })
+    return employeesContainer
+}
+
+function localStorageCheck(){
+    let listOfAllEmployees = JSON.parse(localStorage.getItem('employee'))
+    if(listOfAllEmployees == null || listOfAllEmployees.length == 0){
+        listOfAllEmployees = []
+    }else {
+        listOfAllEmployees = JSON.parse(localStorage.getItem('employee'))
+    }
+    return listOfAllEmployees
+}
+
+function displayEmployees(){
+    const listOfAllEmployees = localStorageCheck()
+    const subContainer = createEmployeeDisplayContainer()
+    const employeesContainer = populateEmployeesContainer(listOfAllEmployees)
+    subContainer.appendChild(employeesContainer)
+
+    const container = document.querySelector('.container')
+    const htmlNewEmployeeForm= document.getElementById('new-employee')
+    container.insertBefore(subContainer,htmlNewEmployeeForm) 
+}
+
+function pushNewEmployeeToStorage(allEmployeesContainer){
+    localStorage.setItem('employee',JSON.stringify(allEmployeesContainer))
+}
+
+function clearEmployeeContainer(){
+    const subContainer = document.getElementById('sub-container')
+    subContainer ? subContainer.remove() : subContainer
+}
+
+function proceedToAddEmployee(newEmployeeObject){
+    const allEmployees = addNewEmployeeToEmployeeList(newEmployeeObject)
+    pushNewEmployeeToStorage(allEmployees)
+    clearFields()
+    closeEmployeeForm()
+    clearEmployeeContainer()
+    displayEmployees()
+}
+
+
+function employeeFormValidation(newEmployeeInformationObject){
+    if(newEmployeeInformationObject.firstName == ''){
+        alert('Name cannot be empty')
+    }else if(newEmployeeInformationObject.lastName == ''){
+        alert('Last Name cannot be empty')
+    }else if(newEmployeeInformationObject.dateOfBirth == ''){
+        alert('Date of Birth cannot be empty')
+    } else {
+        proceedToAddEmployee(newEmployeeInformationObject)
+    }
+}
+
+function addNewEmployee(){
+    const newEmployeeInfo = captureNewEmpoyeeInfo()
+    employeeFormValidation(newEmployeeInfo)
+}
+
+function iconTransformAfterClick(){
+    addEmployeeIcon.classList.add('afterClick')
+    setTimeout(() => {
+       addEmployeeIcon.classList.remove('afterClick') 
+    }, 300);
+}
+
+function showDisplayEmployeeContainer(){
+    const subContainer = document.getElementById('sub-container')
+    if(subContainer !== null){
+        if(subContainer.style.display == 'none'){
+            subContainer.style.display = 'block'
+        }
+    }
+  
+}
+
+function closeEmployeeForm(){
+    employeeForm.classList.remove('register')
+    showDisplayEmployeeContainer()
+}
+
+function hideDisplayEmployeeContainer(){
+    const subContainer = document.getElementById('sub-container')
+    if(subContainer){
+        subContainer.style.display = 'none'
+    }
+}
+
+function pullEmployeeForm(){
+    iconTransformAfterClick()
+    hideDisplayEmployeeContainer()
+    employeeForm.classList.add('register')
 }
