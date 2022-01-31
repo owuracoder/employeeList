@@ -173,7 +173,7 @@ body {
   padding: 20px 20px;
   width: 100%;
   border-radius: 20px;
-  transform: translateX(-1100px);
+  transform: translateX(-2200px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -250,6 +250,11 @@ body {
 
 .action-handlers .del-handler {
   cursor: pointer;
+}
+
+.add-icon.afterClick {
+  transform: scale(0.5);
+  transition: all 0.2s ease-in;
 }
 
 .success {
